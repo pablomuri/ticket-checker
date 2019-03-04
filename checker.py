@@ -59,7 +59,7 @@ def checker(context):
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    update.message.reply_text('Hi! Use /set <seconds> to set a timer')
+    update.message.reply_text('Hi! Use /set <minutes> to set a timer')
 
 
 def send_message(context, message):
@@ -73,11 +73,12 @@ def set_timer(update, context):
     chat_id = update.message.chat_id
     try:
         # args[0] should contain the time for the timer in seconds
-        interval = int(context.args[0])
+        interval = int(context.args[0]) * 60
         if interval < 0:
             update.message.reply_text('Sorry we can not go back to future!')
             return
 
+        
         # Add job to queue
         #job = context.job_queue.run_once(alarm, due, context=chat_id)
         job = context.job_queue.run_repeating(checker, interval, first=0, context=chat_id)
@@ -86,7 +87,7 @@ def set_timer(update, context):
         update.message.reply_text('Timer successfully set!')
 
     except (IndexError, ValueError):
-        update.message.reply_text('Usage: /set <seconds>')
+        update.message.reply_text('Usage: /set <minutes>')
 
 
 def unset(update, context):
