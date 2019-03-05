@@ -84,7 +84,7 @@ def set_timer(update, context):
         job = context.job_queue.run_repeating(checker, interval, first=0, context=chat_id)
         context.chat_data['job'] = job
 
-        update.message.reply_text('Está todo bien puesto')
+        update.message.reply_text('Esta todo bien puesto')
 
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /set <minutes>')
