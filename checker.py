@@ -59,7 +59,7 @@ def checker(context):
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    update.message.reply_text('Hi! Use /set <minutes> to set a timer')
+    update.message.reply_text('Holi! usa /set <minutos> para ver si puedes ver al pachacho')
 
 
 def send_message(context, message):
@@ -84,7 +84,7 @@ def set_timer(update, context):
         job = context.job_queue.run_repeating(checker, interval, first=0, context=chat_id)
         context.chat_data['job'] = job
 
-        update.message.reply_text('Timer successfully set!')
+        update.message.reply_text('Está todo bien puesto')
 
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /set <minutes>')
